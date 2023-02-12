@@ -10,7 +10,7 @@ router.get("/message", (req, res, next) => {
     }
     res.send(`${data}<form action="/message" method="POST" onSubmit="document.getElementById('username').value=localStorage
         .getItem('username')">
-        <input type="text" name="message"><input id="username" name="username">
+        <input placeholder="write message" type="text" name="message"><input placeholder="Enter Name" id="ssusername" name="ssusername">
         <button type="submit">Send</button></form>`);
   });
 });
@@ -18,16 +18,16 @@ router.get("/message", (req, res, next) => {
 router.post("/message", (req, res, next) => {
   fs.writeFile(
     "message.txt",
-    `${req.body.username}:${req.body.message}`,
+    `${req.body.ssusername}: ${req.body.message}`,
     { flag: "a" },
     (err) => {
       err ? console.log(err) : res.redirect("/message");
     }
   );
-  console.log(`${req.body.username} : ${req.body.message}`);
+  console.log(`${req.body.ssusername} : ${req.body.message}`);
 });
 
 router.post("/", (req, res, next) => {
-  res.send(`<h1>${req.body.username} : ${req.body.message}</h1>`);
+  res.send(`<h1>${req.body.ssusername} : ${req.body.message}</h1>`);
 });
 module.exports = router;
